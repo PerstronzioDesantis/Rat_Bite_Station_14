@@ -598,6 +598,7 @@
     flatRecoilDebuff: 5.0
     missShotChance: 0.05
     dropGunChance: 0.01
+  - type: Genome
 
 - type: entity
   save: false

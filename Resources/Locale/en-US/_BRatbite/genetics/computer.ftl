@@ -1,0 +1,12 @@
+genetic-computer-activate = [Active]
+genetic-computer-inactive = [Inactive]
+genetic-computer-status = Status
+genetic-computer-genetic-damange = Genetic Damage
+genetic-computer-print-cooldown = Print Cooldown
+genetic-computer-window-flavor-left = DNA Macros
+genetic-computer-window-flavor-right = Made by top 1% geneticists
+genetic-computer-window-selected-number = Sequence Number
+genetic-computer-window-title = Genetic Computer
+genetic-computer-print-activator = Print Activator
+genetic-computer-print-mutator = Print Mutator
+genetic-computer-joker = Joker

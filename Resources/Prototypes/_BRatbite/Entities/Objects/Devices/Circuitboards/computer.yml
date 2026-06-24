@@ -1,0 +1,12 @@
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: GeneticComputerCircuitboard
+  name: genetic computer board
+  description: A computer printed circuit board for a genetic computer.
+  components:
+  - type: Sprite
+    state: cpu_engineering
+  - type: ComputerBoard
+    prototype: GeneticComputer
+  - type: StaticPrice
+    price: 750

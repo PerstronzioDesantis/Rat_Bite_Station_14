@@ -141,6 +141,7 @@
   - CombatUntrained
   - Mindshield # Prevent people from acting violent after cloning
   - FakeMindshield # Just to prevent metagaming
+  - GenomeComponent # TODO: fix
   # End ratbite
 
   blacklist:

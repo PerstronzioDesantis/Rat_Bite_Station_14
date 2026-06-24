@@ -6,3 +6,36 @@
   components:
   - type: CommunicationsConsole
     title: comms-console-announcement-title-loneops
+
+- type: entity
+  parent: BaseComputerAiAccess
+  id: GeneticComputer
+  name: Genetics Computer
+  description: Computer to engineer the genetic material of test subjects
+  components:
+  - type: GeneticComputer
+    cargoAccount: Engineering
+  - type: UserInterface
+    interfaces:
+      enum.GeneticComputerUiKey.Key:
+        type: GeneticComputerBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: ActivatableUI
+    key: enum.GeneticComputerUiKey.Key
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: engine
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#1f8c28"
+  - type: Computer
+    board: GeneticComputerCircuitboard

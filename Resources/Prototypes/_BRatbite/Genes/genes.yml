@@ -1,0 +1,28 @@
+- type: gene
+  id: BlindnessGene
+  components:
+  - TemporaryBlindness
+
+- type: gene
+  id: EmptyGene2
+  components: []
+
+- type: gene
+  id: EmptyGene3
+  components: []
+  
+- type: gene
+  id: EmptyGene4
+  components: []
+  
+- type: gene
+  id: EmptyGene5
+  components: []
+  
+- type: gene
+  id: EmptyGene6
+  components: []
+  
+- type: gene
+  id: EmptyGene7
+  components: []

@@ -1,0 +1,76 @@
+<controls:FancyWindow
+    xmlns="https://spacestation14.io"
+    xmlns:ui="clr-namespace:Content.Client._BRatbite.Genetics"
+    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+    xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+    Title="{Loc 'genetic-computer-window-title'}"
+    Resizable="False"
+    SetSize="1120 750"
+    MinSize="1120 750">
+    <BoxContainer Orientation="Vertical">
+        <BoxContainer Orientation="Horizontal" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" Margin="10 10 5 10">
+                <controls:StripeBack>
+                    <PanelContainer>
+                        <Label Name="SubjectName" Text="?" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 5 0 3"/>
+                    </PanelContainer>
+                </controls:StripeBack>
+
+                <GridContainer Columns="2" Margin="0 5 0 5">
+                    <Label StyleClasses="StatusFieldTitle" Text="{Loc 'genetic-computer-status'}"/>
+                    <Label Name="SubjectStatus" Text="?" Margin="10 0 0 0"/>
+                    <Label StyleClasses="StatusFieldTitle" Text="{Loc 'genetic-computer-genetic-damange'}"/>
+                    <Label Name="GeneticDamage" Text="??.?%" Margin="10 0 0 0"/>
+                    <Label StyleClasses="StatusFieldTitle" Text="{Loc 'genetic-computer-print-cooldown'}"/>
+                    <Label Name="PrintCooldown" Text="??s" Margin="10 0 0 0"/>
+                </GridContainer>
+
+                <ScrollContainer VerticalExpand="True" HorizontalExpand="True" Margin="0 5 0 0">
+                    <BoxContainer Name="SequenceContainer" Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" Margin="0 0 10 0">
+			<!-- Populated by C# -->
+                    </BoxContainer>
+                </ScrollContainer>
+
+                <BoxContainer Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right">
+                    <Button Name="PrintActivatorButton" Text="{Loc 'genetic-computer-print-activator'}" MinWidth="120"/>
+		    <Button Name="PrintMutatorButton" Text="{Loc 'genetic-computer-print-mutator'}" MinWidth="120"/>
+                </BoxContainer>
+
+            </BoxContainer>
+
+            <BoxContainer Orientation="Vertical" VerticalExpand="True" SetWidth="380" Margin="5 10 10 10">
+
+                <controls:StripeBack>
+                    <PanelContainer>
+                        <Label Text="?" Name="SelectedSequenceName" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 5 0 3"/>
+                    </PanelContainer>
+                </controls:StripeBack>
+
+                <GridContainer Columns="2" Margin="0 5 0 5">
+                    <Label StyleClasses="StatusFieldTitle" Text="{ Loc 'genetic-computer-window-selected-number' }"/>
+                    <Label Name="SelectedSequenceNumber" Text="?" Margin="10 0 0 0"/>
+                </GridContainer>
+
+                <ScrollContainer VerticalExpand="True" HorizontalExpand="True" Margin="0 5 0 0">
+                    <BoxContainer Name="DNAContainer" Orientation="Vertical" Margin="8 0 10 0">
+			<!-- Populated by C# -->
+                    </BoxContainer>
+                </ScrollContainer>
+		<Button Name="JokerButton" Text="{Loc 'genetic-computer-joker'}"> </Button>
+            </BoxContainer>
+
+        </BoxContainer>
+
+        <BoxContainer Orientation="Vertical">
+            <PanelContainer StyleClasses="LowDivider"/>
+            <BoxContainer Orientation="Horizontal" Margin="10 2 5 0" VerticalAlignment="Bottom">
+                <Label Text="{Loc 'genetic-computer-window-flavor-left'}" StyleClasses="WindowFooterText"/>
+                <Label Text="{Loc 'genetic-computer-window-flavor-right'}" StyleClasses="WindowFooterText"
+                       HorizontalAlignment="Right" HorizontalExpand="True" Margin="0 0 5 0"/>
+                <TextureRect StyleClasses="NTLogoDark" Stretch="KeepAspectCentered"
+                             VerticalAlignment="Center" HorizontalAlignment="Right" SetSize="19 19"/>
+            </BoxContainer>
+        </BoxContainer>
+
+    </BoxContainer>
+</controls:FancyWindow>
