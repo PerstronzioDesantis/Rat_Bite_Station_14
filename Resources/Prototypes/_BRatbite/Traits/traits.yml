@@ -306,3 +306,12 @@
   - type: Kleptomania
     timeBetweenIncidents: 3, 3
     riskyTargets: true
+
+- type: trait
+  id: KeyboardWarrior
+  name: trait-keyboardwarrior-name
+  description: trait-keyboardwarrior-desc
+  category: Mental
+  cost: 10
+  components:
+  - type: KeyboardWarrior

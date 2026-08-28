@@ -81,3 +81,6 @@ trait-nude-description = You have an irrational fear of clothing, and are slower
 
 trait-trigger-name = Trigger
 trait-trigger-desc = Careful examination of your internals may cause you to explode
+
+trait-keyboardwarrior-name = Keyboard Warrior
+trait-keyboardwarrior-desc = You have an innate ability to evade arrests using the power of sending messages in LOOC

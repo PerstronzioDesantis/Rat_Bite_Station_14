@@ -1,0 +1,5 @@
+- type: localizedDataset
+  id: MaldDataset
+  values:
+    prefix: trait-keyboardwarrior-message-dataset-
+    count: 5
