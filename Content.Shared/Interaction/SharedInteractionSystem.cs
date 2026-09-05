@@ -3,6 +3,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Goobstation.Common.Interactions;
+using Content.Shared._BRatbite.SpyCamera;
 using Content.Shared._Shitcode.Heretic.Components;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
@@ -77,6 +78,7 @@ namespace Content.Shared.Interaction
         [Dependency] private readonly SharedPlayerRateLimitManager _rateLimit = default!;
         [Dependency] private readonly TagSystem _tagSystem = default!;
         [Dependency] private readonly UseDelaySystem _useDelay = default!;
+        [Dependency] private readonly SpyCameraSystem _spyCameraSystem = default!;
 
         // <Trauma>
         private EntityQuery<TargetInteractionRelayComponent> _targetRelayQuery;
@@ -190,7 +192,7 @@ namespace Content.Shared.Interaction
             var range = _ui.GetUiRange(ev.Target, ev.UiKey);
 
             // As long as range>0, the UI frame updates should have auto-closed the UI if it is out of range.
-            DebugTools.Assert(range <= 0 || UiRangeCheck(ev.Actor, ev.Target, range));
+            DebugTools.Assert(range <= 0 || UiRangeCheck(ev.Actor, ev.Target, range, ev.UiKey));
 
             if (range <= 0 && !IsAccessible(ev.Actor, ev.Target))
             {
@@ -211,7 +213,7 @@ namespace Content.Shared.Interaction
                 ev.Cancel();
         }
 
-        private bool UiRangeCheck(Entity<TransformComponent?> user, Entity<TransformComponent?> target, float range)
+        private bool UiRangeCheck(Entity<TransformComponent?> user, Entity<TransformComponent?> target, float range, Enum uiKey)
         {
             if (range < 0) // Goobstation
                 return true;
@@ -226,6 +228,10 @@ namespace Content.Shared.Interaction
             if (target.Comp.ParentUid == user.Owner)
                 return true;
 
+            // Ratbite start
+            Logger.Debug($"We are spying: {_spyCameraSystem.IsSpyingOn(user.Owner, target.Owner, uiKey)}");
+            if (_spyCameraSystem.IsSpyingOn(user.Owner, target.Owner, uiKey)) return true;
+            // Ratbite end
             return InRangeAndAccessible(user, target, range) || _ignoreUiRangeQuery.HasComp(user);
         }
 
@@ -1501,7 +1507,7 @@ namespace Content.Shared.Interaction
             if (ev.Result == BoundUserInterfaceRangeResult.Fail)
                 return;
 
-            ev.Result = UiRangeCheck(ev.Actor!, ev.Target, ev.Data.InteractionRange)
+            ev.Result = UiRangeCheck(ev.Actor!, ev.Target, ev.Data.InteractionRange, ev.UiKey)
                     ? BoundUserInterfaceRangeResult.Pass
                     : BoundUserInterfaceRangeResult.Fail;
         }

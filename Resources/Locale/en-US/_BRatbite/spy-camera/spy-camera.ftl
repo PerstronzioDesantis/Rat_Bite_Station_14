@@ -1,0 +1,1 @@
+spy-camera-interact-success = You injected telemetry into the {$name}.

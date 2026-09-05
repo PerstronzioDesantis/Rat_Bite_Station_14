@@ -1,0 +1,11 @@
+- type: entity
+  parent: BaseItem
+  id: TelemetryInjector
+  name: telemetry injector
+  description: A tool capable of injecting security telemetry into machines, to let security spy on them.
+  components:
+  - type: Sprite
+    sprite: _BRatbite/Objects/Security/telemetry-injector.rsi/
+  - type: Item
+    itemSize: Small
+  - type: SpyCamera
