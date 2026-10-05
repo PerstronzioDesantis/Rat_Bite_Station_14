@@ -248,6 +248,7 @@
     onlyPunches: true
   - type: IgniteOnFireStatusEffect
     fireStacksToAdd: 6
+    minFireStacksToSet: 6
     stopExtinguish: true
 
 - type: entity

@@ -16,6 +16,12 @@ public sealed partial class IgniteOnFireStatusEffectComponent : Component
     public float FireStacksToAdd;
 
     /// <summary>
+    /// The minimal fire stacks the entity can have while the effect is active
+    /// </summary>
+    [DataField]
+    public float MinFireStacksToSet;
+
+    /// <summary>
     /// If the effect stops the entity from being extinguished.
     /// </summary>
     [DataField]
@@ -27,4 +33,11 @@ public sealed partial class IgniteOnFireStatusEffectComponent : Component
     /// <remarks>used to return to the same state after the effect is gone</remarks>
     [ViewVariables]
     public bool CouldExtinguish;
+
+    /// <summary>
+    /// The value of <see cref="FlammableComponent.MinimumFireStacks"/> before the effect was applied.
+    /// </summary>
+    /// <remarks>used to return to the same value after the effect is gone</remarks>
+    [ViewVariables]
+    public float PreviousMinFireStacks;
 }

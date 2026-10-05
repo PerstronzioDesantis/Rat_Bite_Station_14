@@ -23,8 +23,10 @@ public sealed class IgniteOnFireStatusEffectSystem : SharedIgniteOnFireStatusEff
         entity.Comp.CouldExtinguish = flammableComponent.CanExtinguish;
         flammableComponent.CanExtinguish = !entity.Comp.StopExtinguish;
 
-        flammableComponent.FireStacks += entity.Comp.FireStacksToAdd;
-        _flammable.Ignite(args.Target);
+        entity.Comp.PreviousMinFireStacks = flammableComponent.MinimumFireStacks;
+        flammableComponent.MinimumFireStacks = entity.Comp.MinFireStacksToSet;
+
+        _flammable.AdjustFireStacks(args.Target, entity.Comp.FireStacksToAdd, null, true);
     }
 
     private void OnEffectRemoved(Entity<IgniteOnFireStatusEffectComponent> entity, ref StatusEffectRemovedEvent args)
@@ -33,5 +35,6 @@ public sealed class IgniteOnFireStatusEffectSystem : SharedIgniteOnFireStatusEff
             return;
 
         flammableComponent.CanExtinguish = entity.Comp.CouldExtinguish;
+        flammableComponent.MinimumFireStacks = entity.Comp.PreviousMinFireStacks;
     }
 }
