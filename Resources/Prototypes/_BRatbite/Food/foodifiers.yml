@@ -316,3 +316,19 @@
   components:
   - type: ReplaceTauCetiStatusEffect
     language: SolCommon
+
+- type: entity
+  id: GoldFoodifier
+  parent: [ MobStatusEffectDebuff ]
+  components:
+  - type: ColorChangeStatusEffect
+    color: '#edca05'
+  - type: ChangeMobThresholdStateStatusEffect
+    state: Critical
+    amount: 15
+  - type: ChangeStaminaStatusEffect
+    addedStamina: 10
+  - type: ChatFontOverrideStatusEffect
+    color: '#edca05'
+    fontId: NotoSansSCBold
+  - type: AllCapsAccent
