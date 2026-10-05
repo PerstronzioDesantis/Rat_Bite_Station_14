@@ -54,6 +54,8 @@ guidebook-description-drop-immune = Makes the entity not drop the items in their
 
 guidebook-description-no-slip = Makes the entity immune to slipping.
 
+guidebook-description-ignite = Makes the entity catch on fire.
+
 guidebook-description-prevent-speech = Makes the entity unable to speak.
 
 guidebook-description-mob-state-threshold = Changes the entity threshold for [bold]{$state}[/bold] by [bold]{$amount}[/bold].

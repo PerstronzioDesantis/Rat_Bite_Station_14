@@ -5,7 +5,7 @@ using Content.Shared.StatusEffectNew;
 
 namespace Content.Server._BRatbite.Nutrition.Foodifiers;
 
-public sealed class IgnireOnFireStatusEffectSystem : EntitySystem
+public sealed class IgniteOnFireStatusEffectSystem : SharedIgniteOnFireStatusEffectSystem
 {
     [Dependency] private readonly FlammableSystem _flammable = default!;
     public override void Initialize()
