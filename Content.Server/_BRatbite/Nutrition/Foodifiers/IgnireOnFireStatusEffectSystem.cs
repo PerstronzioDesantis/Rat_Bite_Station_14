@@ -20,11 +20,17 @@ public sealed class IgniteOnFireStatusEffectSystem : SharedIgniteOnFireStatusEff
         if(!TryComp<FlammableComponent>(args.Target, out var flammableComponent))
             return;
 
-        entity.Comp.CouldExtinguish = flammableComponent.CanExtinguish;
-        flammableComponent.CanExtinguish = !entity.Comp.StopExtinguish;
+        if (entity.Comp.StopExtinguish)
+        {
+            entity.Comp.CouldExtinguish = flammableComponent.CanExtinguish;
+            flammableComponent.CanExtinguish = false;
+        }
 
-        entity.Comp.PreviousMinFireStacks = flammableComponent.MinimumFireStacks;
-        flammableComponent.MinimumFireStacks = entity.Comp.MinFireStacksToSet;
+        if (entity.Comp.MinFireStacksToSet != null)
+        {
+            entity.Comp.PreviousMinFireStacks = flammableComponent.MinimumFireStacks;
+            flammableComponent.MinimumFireStacks = entity.Comp.MinFireStacksToSet.Value;
+        }
 
         _flammable.AdjustFireStacks(args.Target, entity.Comp.FireStacksToAdd, null, true);
     }
@@ -34,7 +40,10 @@ public sealed class IgniteOnFireStatusEffectSystem : SharedIgniteOnFireStatusEff
         if(!TryComp<FlammableComponent>(args.Target, out var flammableComponent))
             return;
 
-        flammableComponent.CanExtinguish = entity.Comp.CouldExtinguish;
-        flammableComponent.MinimumFireStacks = entity.Comp.PreviousMinFireStacks;
+        if (entity.Comp.CouldExtinguish != null)
+            flammableComponent.CanExtinguish = entity.Comp.CouldExtinguish.Value;
+
+        if (entity.Comp.PreviousMinFireStacks != null)
+            flammableComponent.MinimumFireStacks = entity.Comp.PreviousMinFireStacks.Value;
     }
 }
