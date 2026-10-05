@@ -332,3 +332,7 @@
     color: '#edca05'
     fontId: NotoSansSCBold
   - type: AllCapsAccent
+  - type: ChangeContrabandStatusEffect
+    severity: HighlyIllegal
+    allowedJobs: [ ] # no one
+    allowedDepartments: [ ] # no one
