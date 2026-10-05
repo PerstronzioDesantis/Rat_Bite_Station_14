@@ -101,4 +101,6 @@ guidebook-description-prevent-cuff = Makes the entity escape being cuffed for th
 
 guidebook-description-copy-pasta = Makes the user repeat everything they say.
 
+guidebook-description-all-caps = Makes the user speak slightly louder.
+
 guidebook-description-replace-tau-ceti = Replaces the user tau ceti knowledge with {$language}.
