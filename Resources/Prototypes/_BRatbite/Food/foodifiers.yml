@@ -246,6 +246,9 @@
       types:
         Heat: 20
     onlyPunches: true
+  - type: IgniteOnFireStatusEffect
+    fireStacksToAdd: 6
+    stopExtinguish: true
 
 - type: entity
   parent: [ MobStatusEffectDebuff ]
