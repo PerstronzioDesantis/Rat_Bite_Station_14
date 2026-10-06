@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.StatusEffectNew;
 using Content.Shared.Weapons.Melee.Events;
 
@@ -32,7 +33,8 @@ public sealed partial class MeleeDamageStatusEffectSystem : EntitySystem
 
         if (ent.Comp.ExtraDamage != null)
         {
-            args.Message.AddMarkupOrThrow(Loc.GetString(ent.Comp.OnlyPunches ? "guidebook-description-melee-buff-extra-punch" : "guidebook-description-melee-buff-extra", ("newDamage", ent.Comp.ExtraDamage.ToString())));
+            args.Message.AddMarkupOrThrow(Loc.GetString(ent.Comp.OnlyPunches ? "guidebook-description-melee-buff-extra-punch" : "guidebook-description-melee-buff-extra", ("newDamage", string.Join(", ", ent.Comp.ExtraDamage.DamageDict.Select((d) => Loc.GetString("guidebook-description-damage", ("damageAmount", d.Value), ("damageType", d.Key)))))));
+            args.Message.PushNewline();
         }
     }
 }

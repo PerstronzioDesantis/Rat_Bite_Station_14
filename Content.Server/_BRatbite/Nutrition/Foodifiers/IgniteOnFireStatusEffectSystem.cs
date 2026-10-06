@@ -1,4 +1,5 @@
 ﻿using Content.Server.Atmos.EntitySystems;
+using Content.Shared._BRatbite.Atmos;
 using Content.Shared._BRatbite.Nutrition.Foodifiers;
 using Content.Shared.Atmos.Components;
 using Content.Shared.StatusEffectNew;
@@ -13,25 +14,14 @@ public sealed class IgniteOnFireStatusEffectSystem : SharedIgniteOnFireStatusEff
         base.Initialize();
         SubscribeLocalEvent<IgniteOnFireStatusEffectComponent, StatusEffectAppliedEvent>(OnEffectApplied);
         SubscribeLocalEvent<IgniteOnFireStatusEffectComponent, StatusEffectRemovedEvent>(OnEffectRemoved);
+        SubscribeLocalEvent<IgniteOnFireStatusEffectComponent, StatusEffectRelayedEvent<ExtinguishAttemptEvent>>(OnExtinguishAttempt);
     }
 
     private void OnEffectApplied(Entity<IgniteOnFireStatusEffectComponent> entity, ref StatusEffectAppliedEvent args)
     {
         if(!TryComp<FlammableComponent>(args.Target, out var flammableComponent))
             return;
-
-        if (entity.Comp.StopExtinguish)
-        {
-            entity.Comp.CouldExtinguish = flammableComponent.CanExtinguish;
-            flammableComponent.CanExtinguish = false;
-        }
-
-        if (entity.Comp.MinFireStacksToSet != null)
-        {
-            entity.Comp.PreviousMinFireStacks = flammableComponent.MinimumFireStacks;
-            flammableComponent.MinimumFireStacks = entity.Comp.MinFireStacksToSet.Value;
-        }
-
+        flammableComponent.MinimumFireStacks += entity.Comp.GuaranteedFireStacks;
         _flammable.AdjustFireStacks(args.Target, entity.Comp.FireStacksToAdd, null, true);
     }
 
@@ -39,11 +29,12 @@ public sealed class IgniteOnFireStatusEffectSystem : SharedIgniteOnFireStatusEff
     {
         if(!TryComp<FlammableComponent>(args.Target, out var flammableComponent))
             return;
+        flammableComponent.MinimumFireStacks -= entity.Comp.GuaranteedFireStacks;
+    }
 
-        if (entity.Comp.CouldExtinguish != null)
-            flammableComponent.CanExtinguish = entity.Comp.CouldExtinguish.Value;
-
-        if (entity.Comp.PreviousMinFireStacks != null)
-            flammableComponent.MinimumFireStacks = entity.Comp.PreviousMinFireStacks.Value;
+    private void OnExtinguishAttempt(Entity<IgniteOnFireStatusEffectComponent> ent, ref StatusEffectRelayedEvent<ExtinguishAttemptEvent> args)
+    {
+        if (ent.Comp.GuaranteedFireStacks > 0f)
+            args.Args = args.Args with { Cancelled = true };
     }
 }

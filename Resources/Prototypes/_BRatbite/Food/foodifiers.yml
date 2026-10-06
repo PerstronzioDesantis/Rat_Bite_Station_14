@@ -248,8 +248,7 @@
     onlyPunches: true
   - type: IgniteOnFireStatusEffect
     fireStacksToAdd: 6
-    minFireStacksToSet: 6
-    stopExtinguish: true
+    guaranteedFireStacks: 6
 
 - type: entity
   parent: [ MobStatusEffectDebuff ]
