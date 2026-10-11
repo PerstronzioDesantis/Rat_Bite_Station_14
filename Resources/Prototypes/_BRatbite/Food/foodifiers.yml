@@ -352,6 +352,12 @@
     allowedDepartments: [ ] # no one
 
 - type: entity
+  id: ClownFoodifier
+  parent: [ MobStatusEffectDebuff ]
+  components:
+  - type: AddWaddleStatusEffect
+
+- type: entity
   id: AmanitaFoodifier
   parent: [ MobStatusEffectDebuff, MobStatusEffectScalable ]
   components:
