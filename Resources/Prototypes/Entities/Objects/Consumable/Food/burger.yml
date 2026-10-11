@@ -556,6 +556,9 @@
   - type: Tag
     tags:
     - Meat
+  - type: CookedFood # Ratbite
+    statusEffectProto:
+    - ClownBurgerFoodifier
 
 - type: entity
   name: corger #not curger

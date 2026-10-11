@@ -95,3 +95,7 @@
   components:
   - type: EmoteOverrideStatusEffect
     sounds: UnisexIPC
+
+- type: entity
+  parent: [BaseBurgerFoodifier, ClownFoodifier]
+  id: ClownBurgerFoodifier
