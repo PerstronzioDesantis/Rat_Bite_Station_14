@@ -114,3 +114,5 @@ guidebook-description-replace-tau-ceti = Replaces the user tau ceti knowledge wi
 guidebook-description-random-accent = Gives the user a random accent.
 
 guidebook-description-seeing-rainbows = Makes the user hallucinate.
+
+guidebook-description-speed-immunity = Makes the user [bold]{$multiplier}[/bold]% less affected to slow downs.

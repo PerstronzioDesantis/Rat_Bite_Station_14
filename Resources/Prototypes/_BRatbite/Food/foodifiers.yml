@@ -118,9 +118,9 @@
     multiplier: 10001
   - type: InjectionInteractedSpeedupStatusEffect
     multiplier: 10001
-  - type: MovementModStatusEffect
-    walkSpeedModifier: 100000
-    sprintSpeedModifier: 100000
+  #- type: MovementModStatusEffect
+  #  walkSpeedModifier: 100000
+  #  sprintSpeedModifier: 100000
   - type: FrenchAccent
   - type: IgnoreKudzu
   - type: ShowJobIcons
@@ -133,7 +133,9 @@
         Blunt: 0.1
         Piercing: 0.1
       flatReductions:
-        Radiation: 20      
+        Radiation: 20
+  - type: SpeedModifierImmunityStatusEffect
+    multiplier: 0
 
 - type: entity
   parent: [MobStatusEffectScalable, MobStatusEffectDebuff]
@@ -387,3 +389,10 @@
   id: GrapeFoodifier
   components:
   - type: DropImmuneStatusEffect
+
+- type: entity
+  parent: [ MobStatusEffectScalable, MobStatusEffectDebuff ]
+  id: ChickenFoodifier
+  components:
+  - type: SpeedModifierImmunityStatusEffect
+    multiplier: 0.5
