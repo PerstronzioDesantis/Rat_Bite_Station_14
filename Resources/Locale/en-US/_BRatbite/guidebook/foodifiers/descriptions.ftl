@@ -36,6 +36,8 @@ guidebook-description-chat-speak = Causes the user to speak uncontrollably.
 guidebook-description-chat-emote = Causes the user to emote uncontrollably.
 guidebook-description-chat-whisper = Causes the user to emote uncontrollably.
 
+guidebook-description-add-waddle = Causes the user to waddle when walking.
+
 guidebook-description-damage-resistance-coefficient = Modifies incoming { $wideSwing ->
     [true] wideswing{" "}
     *[other] {""}
