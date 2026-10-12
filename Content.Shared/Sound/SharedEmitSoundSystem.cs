@@ -57,6 +57,8 @@ public abstract class SharedEmitSoundSystem : EntitySystem
         SubscribeLocalEvent<EmitSoundOnCollideComponent, StartCollideEvent>(OnEmitSoundOnCollide);
 
         SubscribeLocalEvent<SoundWhileAliveComponent, MobStateChangedEvent>(OnMobState);
+
+        SubscribeLocalEvent<TransformComponent, EmitSoundActionEvent>(OnEmitSoundEvent);
     }
 
     private void HandleEmitSoundOnUIOpen(EntityUid uid, EmitSoundOnUIOpenComponent component, AfterActivatableUIOpenEvent args)
@@ -77,6 +79,15 @@ public abstract class SharedEmitSoundSystem : EntitySystem
         }
 
         _ambient.SetAmbience(entity.Owner, args.NewMobState != MobState.Dead);
+    }
+
+    private void OnEmitSoundEvent(EntityUid uid, TransformComponent comp, ref EmitSoundActionEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        _audioSystem.PlayPvs(args.Sound, uid);
+        args.Handled = true;
     }
 
     private void OnEmitSpawnOnInit(EntityUid uid, EmitSoundOnSpawnComponent component, MapInitEvent args)
