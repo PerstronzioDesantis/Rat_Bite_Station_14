@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Numerics;
+using Content.Goobstation.Shared.Nutrition.Foodifiers;
 using Robust.Shared.GameStates;
 
 namespace Content.Goobstation.Shared.Waddle;
@@ -8,7 +9,7 @@ namespace Content.Goobstation.Shared.Waddle;
 /// <summary>
 /// Defines something as having a waddle animation when it moves.
 /// </summary>
-[RegisterComponent, NetworkedComponent, Access(typeof(SharedWaddleAnimationSystem), typeof(WaddleClothingSystem))]
+[RegisterComponent, NetworkedComponent, Access(typeof(SharedWaddleAnimationSystem), typeof(WaddleClothingSystem), typeof(AddWaddleStatusEffectSystem))]
 [AutoGenerateComponentState(true, true)]
 public sealed partial class WaddleAnimationComponent : Component
 {

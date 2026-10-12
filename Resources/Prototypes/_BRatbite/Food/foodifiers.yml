@@ -354,6 +354,26 @@
     allowedDepartments: [ ] # no one
 
 - type: entity
+  parent: BaseAction
+  id: ActionHonk
+  name: Honk!
+  description: Emitt the sound of the clown.
+  components:
+  - type: Action
+    useDelay: 5
+    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+  - type: InstantAction
+    event: !type:EmitSoundActionEvent {}
+
+- type: entity
+  id: ClownFoodifier
+  parent: [ MobStatusEffectDebuff ]
+  components:
+  - type: AddWaddleStatusEffect
+  - type: AddActionStatusEffect
+    action: ActionHonk
+
+- type: entity
   id: AmanitaFoodifier
   parent: [ MobStatusEffectDebuff, MobStatusEffectScalable ]
   components:
