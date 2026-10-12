@@ -1243,6 +1243,10 @@
       right:
       - state: plain-cooked-inhand-right
         color: "#F7E3A3"
+  - type: CookedFood # Ratbite
+    statusEffectProto:
+    - ChickenFoodifier
+
 
 - type: entity
   parent: FoodMeatChickenFried

@@ -99,3 +99,7 @@
 - type: entity
   parent: [BaseBurgerFoodifier, ClownFoodifier]
   id: ClownBurgerFoodifier
+
+- type: entity
+  parent: [ BaseBurgerFoodifier, ChickenFoodifier ]
+  id: ChickenBurgerFoodifier

@@ -520,7 +520,7 @@
         color: "#f7b125"
   - type: CookedFood # Ratbite
     statusEffectProto:
-    - MeatBurgerFoodifier
+    - ChickenBurgerFoodifier
 # Tastes like bun, chicken.
 
 - type: entity

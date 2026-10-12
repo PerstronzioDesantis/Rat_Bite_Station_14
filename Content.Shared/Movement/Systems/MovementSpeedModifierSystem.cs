@@ -183,8 +183,8 @@ namespace Content.Shared.Movement.Systems
     {
         public SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
 
-        public float WalkSpeedModifier { get; private set; } = 1.0f;
-        public float SprintSpeedModifier { get; private set; } = 1.0f;
+        public float WalkSpeedModifier { get; set; } = 1.0f;
+        public float SprintSpeedModifier { get; set; } = 1.0f;
 
         /// <summary>
         ///    Goobstation Change: Whether or not this entity is immune to most movement speed modifiers.

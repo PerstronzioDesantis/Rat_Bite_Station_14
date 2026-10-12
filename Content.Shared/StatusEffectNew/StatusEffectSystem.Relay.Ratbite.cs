@@ -7,9 +7,11 @@ using Content.Shared._BRatbite.Speech;
 using Content.Shared._EinsteinEngines.Language.Events;
 using Content.Shared._Shitmed.DoAfter;
 using Content.Shared.Chat;
+using Content.Shared.Clothing;
 using Content.Shared.Cuffs.Components;
 using Content.Shared.Damage;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Movement.Systems;
 using Content.Shared.Overlays;
 using Content.Shared.Slippery;
 using Content.Shared.Speech;
@@ -46,5 +48,6 @@ public sealed partial class StatusEffectsSystem
         SubscribeLocalEvent<StatusEffectContainerComponent, DetermineEntityLanguagesEvent>(RefRelayStatusEffectEvent);
         SubscribeLocalEvent<StatusEffectContainerComponent, AttackedEvent>(RelayStatusEffectEvent);
         SubscribeLocalEvent<StatusEffectContainerComponent, ExtinguishAttemptEvent>(RefRelayStatusEffectEvent);
+        SubscribeLocalEvent<StatusEffectContainerComponent, RefreshMovementSpeedModifiersEvent>(RelayStatusEffectEvent, after: [typeof(ClothingSpeedModifierSystem), typeof(SlowOnDamageSystem)]);
     }
 }
