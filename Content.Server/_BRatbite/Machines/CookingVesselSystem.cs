@@ -14,7 +14,6 @@ using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Damage;
 using Content.Shared.Kitchen;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Stacks;
 using Content.Shared.Tag;
@@ -40,13 +39,10 @@ public sealed class CookingVesselSystem : SharedCookingVesselSystem
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly SharedCookedFoodSystem _cookedFoodSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
     [Dependency] private readonly FlammableSystem _flammableSystem = default!;
 
-    private DamageSpecifier _creatureDamage = new();
-    private const float HeatDamageMultiplier = 5.0f;
-    private const int MobFireStacks = 10;
+    private readonly DamageSpecifier _creatureDamage = new();
 
     private static readonly ProtoId<TagPrototype> MetalTag = "Metal";
     private static readonly ProtoId<TagPrototype> PlasticTag = "Plastic";
@@ -173,7 +169,7 @@ public sealed class CookingVesselSystem : SharedCookingVesselSystem
         {
             if (HasComp<MobStateComponent>(storageContainedEntity))
             {
-                _creatureDamage.DamageDict["Heat"] = frameTime * HeatDamageMultiplier;
+                _creatureDamage.DamageDict["Heat"] = frameTime * cookingVesselComponent.HeatDamageMultiplier;
                 _damageableSystem.TryChangeDamage(storageContainedEntity, _creatureDamage);
             }
 
@@ -388,7 +384,7 @@ public sealed class CookingVesselSystem : SharedCookingVesselSystem
             var mobs = cookingVesselComp.Storage.ContainedEntities.Where(HasComp<MobStateComponent>);
             foreach (var mob in mobs)
             {
-                _flammableSystem.AdjustFireStacks(mob, MobFireStacks, ignite: true);
+                _flammableSystem.AdjustFireStacks(mob, cookingVesselComp.MobFireStacks, ignite: true);
             }
             _containerSystem.EmptyContainer(cookingVesselComp.Storage);
         }

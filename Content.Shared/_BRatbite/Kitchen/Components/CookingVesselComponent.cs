@@ -22,6 +22,12 @@ public sealed partial class CookingVesselComponent : Component
     [DataField, AutoNetworkedField, ViewVariables]
     public bool RequiresPower;
 
+    [DataField]
+    public float HeatDamageMultiplier = 5.0f;
+
+    [DataField]
+    public int MobFireStacks = 10;
+
     #region storage
     public Container Storage = default!;
 
