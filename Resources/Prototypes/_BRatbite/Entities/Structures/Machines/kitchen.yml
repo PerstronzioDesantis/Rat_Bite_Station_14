@@ -51,6 +51,11 @@
   - type: CookingVessel
     preparationMethod: Baking
     requiresPower: true
+    creatureDamagePerTick:
+  - type: DragInsertContainer
+    containerId: cooking_entity_container
+    entryDelay: 5
+    useVerbs: false
   - type: TimedCooker
     onUIOpenSound: /Audio/_Goobstation/DropPod/closet_open.ogg
     onUICloseSound: /Audio/Effects/closetclose.ogg

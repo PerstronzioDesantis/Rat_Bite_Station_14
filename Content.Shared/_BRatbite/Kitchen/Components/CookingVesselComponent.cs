@@ -1,4 +1,5 @@
 ﻿using Content.Shared._BRatbite.Kitchen.Systems;
+using Content.Shared.Damage;
 using Content.Shared.Item;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;

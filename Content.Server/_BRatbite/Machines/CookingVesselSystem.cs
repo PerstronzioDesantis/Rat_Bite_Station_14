@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Content.Goobstation.Maths.FixedPoint;
+using Content.Server.Atmos.EntitySystems;
 using Content.Server.Construction;
 using Content.Server.Temperature.Systems;
 using Content.Shared._BRatbite.Kitchen;
@@ -10,7 +11,10 @@ using Content.Shared._BRatbite.Nutrition.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reaction;
+using Content.Shared.Damage;
 using Content.Shared.Kitchen;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Stacks;
 using Content.Shared.Tag;
@@ -36,6 +40,13 @@ public sealed class CookingVesselSystem : SharedCookingVesselSystem
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly SharedCookedFoodSystem _cookedFoodSystem = default!;
+    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
+    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency] private readonly FlammableSystem _flammableSystem = default!;
+
+    private DamageSpecifier _creatureDamage = new();
+    private const float HeatDamageMultiplier = 5.0f;
+    private const int MobFireStacks = 10;
 
     private static readonly ProtoId<TagPrototype> MetalTag = "Metal";
     private static readonly ProtoId<TagPrototype> PlasticTag = "Plastic";
@@ -160,6 +171,12 @@ public sealed class CookingVesselSystem : SharedCookingVesselSystem
     {
         foreach (var storageContainedEntity in cookingVesselComponent.Storage.ContainedEntities)
         {
+            if (HasComp<MobStateComponent>(storageContainedEntity))
+            {
+                _creatureDamage.DamageDict["Heat"] = frameTime * HeatDamageMultiplier;
+                _damageableSystem.TryChangeDamage(storageContainedEntity, _creatureDamage);
+            }
+
             if (TryComp<TemperatureComponent>(storageContainedEntity, out var temperature))
                 _temperatureSystem.ChangeHeat(storageContainedEntity, frameTime, false, temperature);
 
@@ -368,6 +385,11 @@ public sealed class CookingVesselSystem : SharedCookingVesselSystem
                 }
             }
             StopCooking(uid);
+            var mobs = cookingVesselComp.Storage.ContainedEntities.Where(HasComp<MobStateComponent>);
+            foreach (var mob in mobs)
+            {
+                _flammableSystem.AdjustFireStacks(mob, MobFireStacks, ignite: true);
+            }
             _containerSystem.EmptyContainer(cookingVesselComp.Storage);
         }
     }
