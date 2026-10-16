@@ -1,6 +1,8 @@
 using Content.Server.Salvage;
 using Content.Server.Xenoarchaeology.Artifact.XAT.Components;
+using Content.Shared._BRatbite.Movement;
 using Content.Shared.Clothing;
+using Content.Shared.Gravity;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Content.Shared.Xenoarchaeology.Artifact.XAT;
@@ -18,6 +20,8 @@ public sealed class XATMagnetSystem : BaseQueryUpdateXATSystem<XATMagnetComponen
 
     /// <summary> Pre-allocated and re-used collection.</summary>
     private HashSet<Entity<MagbootsComponent>> _magbootEntities = new();
+
+    private HashSet<Entity<MagnetizedComponent>> _magnetizedEntities = new(); // Ratbite edit
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -42,6 +46,15 @@ public sealed class XATMagnetSystem : BaseQueryUpdateXATSystem<XATMagnetComponen
             Trigger(artifact, node);
             break;
         }
+        _magnetizedEntities.Clear(); // Ratbite edit begin
+        _lookup.GetEntitiesInRange(coords, node.Comp1.MagbootsRange, _magnetizedEntities);
+        foreach (var ent in _magnetizedEntities)
+        {
+            if (ent.Comp.Sources.Count == 0)
+                continue;
+            Trigger(artifact, node);
+            break;
+        } // Ratbite edit end
     }
 
     private void OnMagnetActivated(ref SalvageMagnetActivatedEvent args)

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared._BRatbite.Movement; // Ratbite edit
 using Content.Shared.Alert;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Clothing.EntitySystems;
@@ -18,6 +19,7 @@ public sealed class SharedMagbootsSystem : EntitySystem
     [Dependency] private readonly ItemToggleSystem _toggle = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency] private readonly MagnetizedSystem _magnetized = default!; // Ratbite edit
 
     public override void Initialize()
     {
@@ -32,32 +34,24 @@ public sealed class SharedMagbootsSystem : EntitySystem
 
     private void OnToggled(Entity<MagbootsComponent> ent, ref ItemToggledEvent args)
     {
-        if (_container.TryGetContainingContainer((ent.Owner, null, null), out var container))
-            UpdateMagbootEffects(container.Owner, ent, args.Activated);
+        if (!_container.TryGetContainingContainer((ent.Owner, null, null), out var container)) // Ratbite edit begin
+            return;
+
+        if (args.Activated)
+            _magnetized.AddSource(ent, container.Owner, ent.Comp.RequiresGrid);
+        else
+            _magnetized.RemoveSource(ent, container.Owner); // Ratbite edit end
     }
 
     private void OnGotUnequipped(Entity<MagbootsComponent> ent, ref ClothingGotUnequippedEvent args)
     {
-        UpdateMagbootEffects(args.Wearer, ent, false);
+        _magnetized.RemoveSource(ent, args.Wearer); // Ratbite edit
     }
 
     private void OnGotEquipped(Entity<MagbootsComponent> ent, ref ClothingGotEquippedEvent args)
     {
-        UpdateMagbootEffects(args.Wearer, ent, _toggle.IsActivated(ent.Owner));
-    }
-
-    public void UpdateMagbootEffects(EntityUid user, Entity<MagbootsComponent> ent, bool state)
-    {
-        // TODO: public api for this and add access
-        if (TryComp<MovedByPressureComponent>(user, out var moved))
-            moved.Enabled = !state;
-
-        _gravity.RefreshWeightless(user);
-
-        if (state)
-            _alerts.ShowAlert(user, ent.Comp.MagbootsAlert);
-        else
-            _alerts.ClearAlert(user, ent.Comp.MagbootsAlert);
+        if (_toggle.IsActivated(ent.Owner)) // Ratbite edit
+            _magnetized.AddSource(ent, args.Wearer, ent.Comp.RequiresGrid);
     }
 
     private void OnIsWeightless(Entity<MagbootsComponent> ent, ref IsWeightlessEvent args)
