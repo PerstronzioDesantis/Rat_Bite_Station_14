@@ -437,3 +437,14 @@
     - type: SocialAnxiety
   - type: EmoteOverrideStatusEffect
     sounds: Mouse
+
+- type: entity
+  parent: [ MobStatusEffectDebuff ]
+  id: RatFoodifier
+  components:
+  - type: EmoteOverrideStatusEffect
+    sounds: Mouse
+  - type: TemporaryGrantComponentsStatusEffect
+    components:
+    - type: CrawlUnderObjects
+      actionProto: ActionToggleSneakMode

@@ -29,7 +29,14 @@ public sealed partial class CrawlUnderObjectsSystem : SharedCrawlUnderObjectsSys
         SubscribeLocalEvent<CrawlUnderObjectsComponent, ToggleCrawlingStateEvent>(OnAbilityToggle);
         SubscribeLocalEvent<CrawlUnderObjectsComponent, AttemptClimbEvent>(OnAttemptClimb);
         SubscribeLocalEvent<CrawlUnderObjectsComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
+        SubscribeLocalEvent<CrawlUnderObjectsComponent, ComponentRemove>(OnRemove); // Ratbite edit - Cleanup so component can be added and removed safely with foodifiers
     }
+
+    private void OnRemove(Entity<CrawlUnderObjectsComponent> ent, ref ComponentRemove args) // Begin ratbite edit
+    {
+        DisableSneakMode(ent.Owner, ent.Comp);
+        _actionsSystem.RemoveAction((ent.Owner, null), ent.Comp.ToggleHideAction);
+    } // End Ratbite edit
 
     private bool IsOnCollidingTile(EntityUid uid)
     {
