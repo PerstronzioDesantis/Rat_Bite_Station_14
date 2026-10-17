@@ -455,3 +455,20 @@
   components:
   - type: ReplaceTauCetiStatusEffect
     language: Bubblish
+
+- type: entity
+  id: TalkOrSlowDebuff
+  parent: [ MobStatusEffectDebuff ]
+  components:
+  - type: MovementModStatusEffect
+    sprintSpeedModifier: 0.5
+    walkSpeedModifier: 0.5
+
+- type: entity
+  id: OinkFoodifier
+  parent: [ MobStatusEffectDebuff ]
+  components:
+  - type: TalkOrSlowStatusEffect
+  - type: MeleeDamageStatusEffect
+    multiplier: 2.5
+    onlyPunches: true

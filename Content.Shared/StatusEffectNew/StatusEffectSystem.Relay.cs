@@ -1,4 +1,5 @@
 using Content.Shared.Body.Events;
+using Content.Shared.Chat;
 using Content.Shared.Damage.Events;
 using Content.Shared.Mobs.Events;
 using Content.Shared.Movement.Events;
@@ -35,6 +36,8 @@ public sealed partial class StatusEffectsSystem
         SubscribeLocalEvent<StatusEffectContainerComponent, AccentGetEvent>(RelayStatusEffectEvent);
 
         SubscribeLocalEvent<StatusEffectContainerComponent, BleedModifierEvent>(RefRelayStatusEffectEvent);
+
+        SubscribeLocalEvent<StatusEffectContainerComponent, EntitySpokeEvent>(RelayStatusEffectEvent);
         SubscribeRatbiteRelays(); // Ratbite
     }
 
