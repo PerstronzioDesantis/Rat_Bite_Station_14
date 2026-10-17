@@ -427,3 +427,13 @@
   components:
   - type: SpeedModifierImmunityStatusEffect
     multiplier: 0.5
+
+- type: entity
+  parent: [ MobStatusEffectDebuff ]
+  id: MouseFoodifier
+  components:
+  - type: TemporaryGrantComponentsStatusEffect
+    components:
+    - type: SocialAnxiety
+  - type: EmoteOverrideStatusEffect
+    sounds: Mouse
