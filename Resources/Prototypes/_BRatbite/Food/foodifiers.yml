@@ -448,3 +448,10 @@
     components:
     - type: CrawlUnderObjects
       actionProto: ActionToggleSneakMode
+
+- type: entity
+  id: SnailFoodifier
+  parent: [ MobStatusEffectDebuff ]
+  components:
+  - type: ReplaceTauCetiStatusEffect
+    language: Bubblish
